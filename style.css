@@ -1,0 +1,96 @@
+/*헤더영역*/
+#top_header {
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+  align-items: flex-end;
+
+  width:100%;
+  background-color: rgb(90, 142, 92);
+  color: white;
+}
+#title {
+  width: 50%;
+  padding: 20px;
+}
+
+/*콘텐츠영역*/
+main {
+  margin: 20 20px;
+  display: flex;
+  flex-direction: row;
+}
+#login {  /*로그인*/
+  background-color: rgb(100, 171, 93);
+  color: white;
+  width: 200px;
+  margin: 3px 0px 0px;
+  padding: 20px 15px;
+}
+#login input {
+  margin: 3px;
+}
+.card { /*본문*/
+  width: 700px;
+  margin: 10px 10px;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 1cap;
+}
+.card-content {
+  display: flex;
+  flex-direction: row;
+
+}
+.card figure {
+  width: 300px;
+  height: 150px;
+}
+.card img {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 100%;
+  width: 280px;
+}
+.card p {
+  padding: 0px 5px;
+}
+#ad { /*광고*/
+  width: 200px;
+  margin: 3px 0px 0px;
+  padding: 10px 0px;
+}
+#ad article {
+  background-color:antiquewhite;
+  width: 200px;
+  margin: 0px 5px 10px;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 1cap;
+}
+.ad-img {
+  width: 50px;
+  height: 50px;
+}
+.ad-img img {
+  height: 100%;
+}
+
+
+/*푸터영역*/
+footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  background-color: rgb(90, 142, 92);
+  margin: 3px 0px;
+  padding: 5px;
+}
+#foot li { 
+  width: 250px;
+  padding: 10px;
+}
+
