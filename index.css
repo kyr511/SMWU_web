@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 575px){/*모바일*/
+
+}
+
+@media screen and (min-width:760px) {/*태블릿+데스크탑*/
+
+}
+
+/*헤더부분*/
+header {
+    border-bottom: solid #1a1a1a;
+}
+
+/*메인부분*/
+#container {
+    margin: 10px;
+    width: 100%;
+}
+#barogagi {
+    display: flex;
+    flex-direction: row;
+    margin: 30px auto;
+    width: 600px; height: 100px;
+    border: solid #1a1a1a;
+        padding: 20px;
+}
+button {
+    background-color: #1a1a1a;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+}
+#barogagi div {
+    margin: 10px;
+}
+#bookmovieli {
+    margin: 30px auto;;
+    width: 600px; height: 100px;
+}
+#reviewli {
+    margin: 30px auto;
+    width: 600px; height: 100px;
+}
+
+/*푸터부분*/
+
+
+
