@@ -43,29 +43,92 @@
         <div  id="container">
             <div id="barogagi"> <!--id 고치기-->
                 <div>
-                    <p><button>사용 설명서</button></p>
+                    <p>우리 사이트 이용이 처음이신가요?<br/>어떻게 사용하는지 알고 싶다면<br/>사용 설명서 페이지로 이동해보아요!</p>
+                    <a href="websiteinfo.html"><button>사용 설명서</button></a>
                 </div>
                 <div>
-                    <p><button>키워드 검색</button></p>
+                    <p>찾고 있는 작품이 있으신가요?<br/>작가별, 감독별, 장르별<br/>키워드 검색을 통해서 더 쉽고 간편하게 검색 해보아요!</p>
+                    <a href="keywordsearch.html"><button>키워드 검색</button></a>
                 </div>
             </div> 
-            <div id="bookmovieli"> <!--인기차트-->
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-            <div id="reviewli"> <!--인기리뷰차트-->
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
+            <section id="bookmovieli"> <!--인기차트-->
+                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <ul>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <ul>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item">
+                            <ul>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </li>
+                                <li>
+                                    <img src="..." class="d-block w-100" alt="...">
+                                    <p>Some representative placeholder content for the first slide.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
+            <section id="reviewli"> <!--인기리뷰차트-->
+                <div>
+                    <div><h1>리뷰</h1></div>
+                    <div><h1>리뷰</h1></div>
+                    <div><h1>리뷰</h1></div>
+                </div>
+            </section>
         </div>
     </main>
-
+    
     <footer> 
         <nav class="navbar navbar-expand-lg fixed-bottom navbar-dark bg-dark">
             <div class="container-fluid">
