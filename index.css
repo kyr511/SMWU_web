@@ -3,13 +3,68 @@
     padding: 0;
 }
 
-@media (max-width: 575px){/*모바일*/
-
+@media (max-width: 759px){/*모바일*/
+    #barogagi { 
+    display: none;
+}
 }
 
-@media screen and (min-width:760px) {/*태블릿+데스크탑*/
+@media (min-width: 760px) { /*태블릿+데탑*/
+  #barogagi {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center;
+    margin: 30px auto;
+    height: 200px;
+    border: solid 1px #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+    background-color: #f9f9f9; /* 약간 배경 강조 */
+  }
+  
+  #barogagi div {
+    flex: 1;
+    text-align: center;
+  }
 
+  #barogagi p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  #barogagi button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #barogagi button:hover {
+    background-color: #333;
+  }
 }
+
+@media screen and (min-width:1200px) {/*데스크탑*/
+  #barogagi {
+    width: 950px;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1199px) {/*태블릿*/
+  #barogagi {
+    width: 570px;
+  }
+}
+
+
 
 /*헤더부분*/
 header {
@@ -21,16 +76,7 @@ header {
     margin: 10px;
     width: 100%;
 }
-#barogagi {
-    display: flex;
-    flex-direction: row;
-    margin: 30px auto;
-    width: 950px;
-    height: 200px;
-    border: solid #1a1a1a;
-    border-radius: 3px;
-    padding: 20px;
-}
+
 button {
     background-color: #1a1a1a;
     color: white;

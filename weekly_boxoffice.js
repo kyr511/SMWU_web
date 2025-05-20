@@ -24,6 +24,13 @@ async function getPoster(title) {//포스터이미지 링크로 가져오기
   return null;
 }
 
+function getResponsiveGroupSize() {  //메인 화면에 노출할 영화 개수수
+    const width = window.innerWidth;
+    if (width >= 1200) return 5;   // 데스크탑
+    if (width >= 768) return 3;    // 태블릿
+    return 2;                      // 모바일
+}
+
 //박스오피스 캐러셀 슬라이드에 넣기
 async function loadCarouselBoxOffice() {
     const res = await fetch(url);
@@ -37,7 +44,7 @@ async function loadCarouselBoxOffice() {
     carouselInner.innerHTML = ""; //이건 왜 있는거지지
     indicators.innerHTML = "";
 
-    const groupSize = 5;
+    const groupSize = getResponsiveGroupSize();
     const groups = [];
 
     for (let i=0; i< movies.length; i+=groupSize){ //5개씩끊기
@@ -92,3 +99,12 @@ async function loadCarouselBoxOffice() {
 };
 
 loadCarouselBoxOffice();
+
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer); // 타이머 초기화
+    resizeTimer = setTimeout(() => {
+        loadCarouselBoxOffice(); // 마지막 resize 이벤트에서만 실행
+    }, 500); // 0.5초 후 실행
+});
