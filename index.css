@@ -107,9 +107,9 @@ button {
     height: 120px;
 }
 #myprofile img {
-    position: absolute;
+    /*position: absolute;  중앙정렬 기준 할말
     left:50%;
-    margin-left: -50px;
+    margin-left: -50px;*/
     width: 100px; 
     height: 100px; 
     border-radius:50%; 
