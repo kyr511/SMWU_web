@@ -25,9 +25,10 @@ header {
     display: flex;
     flex-direction: row;
     margin: 30px auto;
-    width: 640px;
+    width: 950px;
     height: 200px;
     border: solid #1a1a1a;
+    border-radius: 3px;
     padding: 20px;
 }
 button {
@@ -39,23 +40,9 @@ button {
 #barogagi div {
     width: 300px;
 }
-#bookmovieli {
-    margin: 30px auto;
-    padding: 30px;
-    height: 200px;
-}
-#bookmovieli ul{
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: center;
-}
-#bookmovieli ul li {
-    margin: 20px;
-    border: solid #1a1a1a;
-    padding: 5px;
-    width: 100px;
-    height: 120px;
+
+#movierank {
+    text-align: center;
 }
 
 #reviewli {
@@ -68,32 +55,6 @@ button {
     padding: 30px;
 }
 
-.star-ratings {
-  color: #aaa9a9; 
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1.3px;
-  -webkit-text-stroke-color: #2b2a29;
-}
- 
-.star-ratings-fill {
-  color: #ff4453;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: gold;
-}
- 
-.star-ratings-base {
-  z-index: 0;
-  padding: 0;
-}
 /*마이페이지*/
 #myprofile {
     margin: 40px auto;
@@ -107,7 +68,7 @@ button {
     height: 120px;
 }
 #myprofile img {
-    /*position: absolute;  중앙정렬 기준 할말
+    /*position: absolute;  중앙정렬 할말
     left:50%;
     margin-left: -50px;*/
     width: 100px; 
