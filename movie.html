@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoviePage</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="text/javascript" src="index.js">
+
+        
+        const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';
+        const tmdbKey = 'e563363c78911106e273c1c98c637eac'
+
+        async function kobisApi() {
+            const today = new Date();
+            today.setDate(today.getDate()-1) //어제
+            const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
+
+            const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${kobisKey}&targetDt=${dateStr}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            return data.boxOfficeResult.dailyBoxOfficeList; // 영화 목록 배열
+        }
+
+        //////////////////////////
+        async function getPosterFromTMDB(title) {
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // 포스터 경로 추출
+            const posterPath = data.results[0]?.poster_path;
+            if (posterPath) {
+                return `https://image.tmdb.org/t/p/w500${posterPath}`;
+            } else {
+                return null; // 포스터 없음
+            }
+        }
+
+        function renderMovies(movies) {
+            const listEl = document.getElementById('movieList');
+            listEl.innerHTML = ''; // 초기화
+
+            movies.forEach((movie) => {
+                const item = document.createElement('li');
+                item.textContent = `(${movie.rank}) ${movie.movieNm}`;
+                listEl.appendChild(item);
+            });
+        }
+
+        function sortMovies(movies, criterion) {
+            return [...movies].sort((a, b) => {
+                if (criterion === 'rank') {
+                    return parseInt(a.rank) - parseInt(b.rank);
+                } 
+                else if (criterion === 'movieNm') {
+                    return a.movieNm.localeCompare(b.movieNm);
+                }
+                return 0;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            let movies = await kobisApi();
+            renderMovies(movies);
+
+            const select = document.getElementById('sortOption');
+            select.addEventListener('change', () => {
+                const sorted = sortMovies(movies, select.value);
+                renderMovies(sorted);
+            });
+        });
+
+        
+        
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">사이트 이름</a> <!--사이트이름-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--상단메뉴바-->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="movie.html">영화</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="book.html">책</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="mypage.html">마이 페이지</a>
+                        </li>
+                    </ul>
+                <form class="d-flex"> <!--검색창-->
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main>
+<div class="container py-4">
+    <h1 class="mb-4 text-center">영화</h1>
+    
+    <!-- 영화 정렬 기준 선택 버튼 추가 -->
+    <div class="d-flex justify-content-end mb-3">
+        <select id="sortOption" class="form-select w-auto">
+            <option value="rank">박스오피스 순위</option>
+            <option value="audiCnt">관객 수</option>
+            <option value="reviewCnt">리뷰 많은 순</option>
+            <option value="likeCnt">좋아요 많은 순</option>
+        </select>
+    </div>
+
+    <div id="movie-list" class="container"></div>
+</div>
+
+<script src="movie.js"></script>
+
+<script src="script.js"></script>
+    </main>
+    <footer>
+        <nav class="navbar navbar-expand-lg fixed-bottom navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> <!--하단메뉴바-->
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="websiteinfo.html">사이트 소개</a>
+                        <a class="nav-link active" aria-current="page" href="sitemap.html">사이트 맵</a>
+                        <a class="nav-link active" aria-current="page" href="developer.html">개발자 소개</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </footer>
+    
+</body>
+</html>

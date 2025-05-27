@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>영화 상세 페이지</title>
+  <link rel="stylesheet" href="index.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <script>
+    const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';
+
+
+// movie-detail.html 페이지에서 URL 파라미터 받기
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieCd = urlParams.get('movieCd');
+
+    // movieCd 콘솔에 찍어보기 (디버깅)
+    console.log(movieCd);  // movieCd 값이 제대로 출력되는지 확인하세요.
+
+    // movieCd가 존재하면 API를 호출해 상세 정보를 가져오기
+    if (movieCd) {
+    getMovieDetails(movieCd);  // 이 함수는 영화 상세 정보를 가져오는 함수입니다.
+    }
+
+    async function getMovieDetails(movieCd) {
+    const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${kobisKey}&movieCd=${movieCd}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // 영화 정보가 있으면 출력
+    if (data.movieInfoResult && data.movieInfoResult.movieInfo) {
+        const movie = data.movieInfoResult.movieInfo;
+        document.getElementById('movie-title').textContent = movie.movieNm;
+        document.getElementById('movie-description').textContent = movie.openDt ? `개봉일: ${movie.openDt}` : '개봉일 정보 없음';
+        document.getElementById('movie-director').textContent = movie.directors.map(d => d.directorNm).join(', ') || '정보 없음';
+
+        // 포스터 설정
+        const posterUrl = `https://image.tmdb.org/t/p/w500${movie.posterPath}`;  // 포스터 경로는 KOBIS에서 받을 수 없음
+        document.getElementById('movie-poster').src = posterUrl;
+    } else {
+        document.getElementById('movie-title').textContent = '영화 정보 없음';
+        document.getElementById('movie-description').textContent = '상세 정보 없음';
+        document.getElementById('movie-director').textContent = '감독 정보 없음';
+    }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (movieCd) {
+        getMovieDetails(movieCd);
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container py-4">
+    <h1 id="movie-title">영화 제목</h1>
+    <img id="movie-poster" src="https://via.placeholder.com/500x750?text=No+Image" alt="Movie Poster" class="img-fluid mb-3">
+    <p id="movie-description">개봉일 정보 없음</p>
+    <p id="movie-director">감독: 정보 없음</p>
+  </div>
+</body>
+</html>
