@@ -3,6 +3,8 @@
     padding: 0;
 }
 
+
+/*메인페이지-사용설명서+키워드검색 바로가기*/
 @media (max-width: 759px){/*모바일*/
     #barogagi { 
     display: none;
@@ -113,6 +115,9 @@ button {
 #myprofile div {
     height: 120px;
 }
+#my_name, #my_id {
+  height: 12px;
+}
 #myprofile img {
     /*position: absolute;  중앙정렬 할말
     left:50%;
@@ -137,7 +142,6 @@ button {
 }
 
 
-/*푸터부분*/
 
 
 
