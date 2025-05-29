@@ -73,12 +73,14 @@
                         </li>
                     </ul>
                 <form class="d-flex"> <!--검색창-->
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </button>
+                    <div class="position-relative">
+                        <input class="form-control rounded-pill pe-5" type="search" placeholder="영화 제목" aria-label="Search">
+                        <button class="btn btn-outline-none position-absolute end-0 translate-middle-y me-1 bg-transparent border-0" style="top: 45%;" type="submit" id="button-addon2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
                 </form>
             </div>
         </nav>
@@ -86,7 +88,7 @@
     <main>
         <form action="login.html">
             <table>
-                <tr><td>닉네임</td></tr>
+                <tr><td>닉네임</td></tr> <!--라벨로 처리? 공백없애기-->
                 <tr><td colspan="2"><input type="text" class="text" id="signup-username"></td></tr>
                 <tr><td>아이디</td></tr>
                 <tr><td colspan="2"><input type="text" class="text" id="signup-ID"></td></tr>
