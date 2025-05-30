@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">사이트 이름</a> <!--사이트이름-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--상단메뉴바-->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="movie.html">영화</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="book.html">책</a>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="mypage.html">마이 페이지</a>
+                </li>
+            </ul>
+        <form class="d-flex"> <!--검색창-->
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+<!--                <button class="btn btn-outline-success" type="submit"> 키워드검색페이지로 이어지도록 코드 수정 / 이영우 -->
+            <button class="btn btn-outline-success" type="button" onclick="location.href='keyword.html'"> <!-- 수정된 코드 / 이영우 -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+</nav>
