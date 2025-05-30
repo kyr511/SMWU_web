@@ -1,3 +1,5 @@
+// movie.js
+
 const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';   // 여기에 네 KOBIS API 키
 const tmdbKey = 'e563363c78911106e273c1c98c637eac';     // 여기에 네 TMDB API 키
 
@@ -56,44 +58,6 @@ try {
     return 'https://via.placeholder.com/500x750?text=No+Image';
 }
 }
-
-// async function showMovies() {
-//   const movies = await kobisApi();
-//   const container = document.getElementById('movie-list');
-
-//   for (const movie of movies) {
-//     const title = movie.movieNm;
-//     const rank = movie.rank;
-//     const openDt = movie.openDt;
-//     const movieCd = movie.movieCd; // 영화 ID
-
-
-//     const posterUrl = await getPosterFromTMDB(title);
-//     const director = await getDirector(movieCd);
-
-
-//     const card = document.createElement('div');
-//     card.className = 'card mb-4';  // 아래 간격
-
-//     card.innerHTML = `
-//     <div class="d-flex mb-3">
-//         <div class="flex-shrink-0">
-//         <img src="${posterUrl}" class="img-fluid" alt="${title}" style="width: 150px; height: 225px; object-fit: cover;">
-//         </div>
-//         <div class="ms-3">
-//         <h5 class="card-title">${rank}. ${title}</h5>
-//         <p class="card-text">개봉일: ${openDt || '정보 없음'}</p>
-//         <p class="card-text">감독: ${director || '정보 없음'}</p>
-//         </div>
-//     </div>
-//     `;
-
-
-//     container.appendChild(card);
-//   }
-// }
-
-// showMovies();
 
 async function showMovies() {
 const movies = await kobisApi();

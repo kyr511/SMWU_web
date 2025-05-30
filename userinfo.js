@@ -1,3 +1,5 @@
+// userinfo.js
+
 function signup() { //회원가입에서 회원정보를 저장하는 함수
     const username = document.getElementById("signup-username").value;
     const id = document.getElementById("signup-ID").value;

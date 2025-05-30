@@ -1,3 +1,5 @@
+//weekly_boxoffis.js
+
 const API_KEY = "8f30f3cd89878ffb75c8b9a4ca3c7d31";
 const TMDB_KEY = "c195cf58dc67be7d7345c99c5a852741";
 
