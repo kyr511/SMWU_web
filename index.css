@@ -3,13 +3,70 @@
     padding: 0;
 }
 
-@media (max-width: 575px){/*모바일*/
 
+/*메인페이지-사용설명서+키워드검색 바로가기*/
+@media (max-width: 759px){/*모바일*/
+    #barogagi { 
+    display: none;
+}
 }
 
-@media screen and (min-width:760px) {/*태블릿+데스크탑*/
+@media (min-width: 760px) { /*태블릿+데탑*/
+  #barogagi {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center;
+    margin: 30px auto;
+    height: 200px;
+    border: solid 1px #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+    background-color: #f9f9f9; /* 약간 배경 강조 */
+  }
+  
+  #barogagi div {
+    flex: 1;
+    text-align: center;
+  }
 
+  #barogagi p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  #barogagi button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #barogagi button:hover {
+    background-color: #333;
+  }
 }
+
+@media screen and (min-width:1200px) {/*데스크탑*/
+  #barogagi {
+    width: 950px;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1199px) {/*태블릿*/
+  #barogagi {
+    width: 570px;
+  }
+}
+
+
 
 /*헤더부분*/
 header {
@@ -21,15 +78,7 @@ header {
     margin: 10px;
     width: 100%;
 }
-#barogagi {
-    display: flex;
-    flex-direction: row;
-    margin: 30px auto;
-    width: 640px;
-    height: 200px;
-    border: solid #1a1a1a;
-    padding: 20px;
-}
+
 button {
     background-color: #1a1a1a;
     color: white;
@@ -39,23 +88,9 @@ button {
 #barogagi div {
     width: 300px;
 }
-#bookmovieli {
-    margin: 30px auto;
-    padding: 30px;
-    height: 200px;
-}
-#bookmovieli ul{
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: center;
-}
-#bookmovieli ul li {
-    margin: 20px;
-    border: solid #1a1a1a;
-    padding: 5px;
-    width: 100px;
-    height: 120px;
+
+#movierank {
+    text-align: center;
 }
 
 #reviewli {
@@ -67,28 +102,46 @@ button {
     margin: 30px auto;
     padding: 30px;
 }
+
 /*마이페이지*/
 #myprofile {
     margin: 40px auto;
-    border: #1a1a1a;
+    border: solid gray;
+    border-radius: 3%;
+    width: 600px; 
+    height: 380px; 
+    padding: 40px;
 }
 #myprofile div {
+    height: 120px;
+}
+#my_name, #my_id {
+  height: 12px;
+}
+#myprofile img {
+    /*position: absolute;  중앙정렬 할말
+    left:50%;
+    margin-left: -50px;*/
+    width: 100px; 
+    height: 100px; 
+    border-radius:50%; 
+}
+#mylist {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    position: absolute;
-    top: 150px;
-    border-top: solid gray;
+    justify-content: space-between;
     width: 100%;
     height: 70px; 
+    border-top: solid gray;
 }
-#myprofile div a {
+#mylist a {
     margin: 20px;
     padding: 0px 30px;
     text-decoration: none;
     color:#1a1a1a;
 }
 
-/*푸터부분*/
+
+
 
 

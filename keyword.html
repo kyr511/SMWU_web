@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 검색</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="keyword.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    
+
+<div class="container py-4">
+    <h1 class="mb-4 text-center">키워드로 영화 검색</h1>
+
+    <!-- 키워드 태그 영역과 정렬박스 묶음 -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div id="keywords">
+            <span class="keyword" data-keyword="액션">#액션</span>
+            <span class="keyword" data-keyword="코미디">#코미디</span>
+            <span class="keyword" data-keyword="드라마">#드라마</span>
+<!--            <span class="keyword" data-keyword="2024">#2024</span>  -->
+            <span class="keyword" data-keyword="한국">#한국</span>
+            <span class="keyword" data-keyword="로맨스">#로맨스</span>
+        </div>
+
+        <select id="sortOption" class="form-select w-auto">
+            <option value="rank">박스오피스 순위</option>
+            <option value="audiCnt">관객 수</option>
+            <option value="reviewCnt">리뷰 많은 순</option>
+            <option value="likeCnt">좋아요 많은 순</option>
+        </select>
+    </div>
+
+</div>
+
+
+    <!-- 검색 결과 영역 -->
+    <div id="result" class="row"></div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+
+<script src="keyword.js"></script>
+</body>
+</html>

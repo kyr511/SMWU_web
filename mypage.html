@@ -42,7 +42,10 @@
     <main>
         <div id="myprofile">
             <div id="myimg"><img src="임시프로필.jpeg" alt="임시프사"></div>
-            <div id="mynameid">닉네임<br/>@아이디</div> <!--쿠키를 사용해야되나?? 사용자별로 자기 닉네임 아이디가 뜨게 하기기-->
+            <div id="mynameid">
+                <p><span id="my_name"></span></p>
+                <p>@<span id="my_id"></span></p>
+            </div>
             <div id="mylist">
                 <a href="">나의 찜<br/><p>12</p></a> <!--임시숫자 지정-->
                 <a href="likelist.html">나의 좋아요<br/><p>13</p></a>
@@ -64,7 +67,16 @@
             </div>
         </nav>
     </footer>
-
+    <script src="userinfo.js"></script>
+    <script>
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+            alert("로그인이 필요한 서비스입니다.");
+            window.location.href = "login.html";
+        } else {
+            document.getElementById("my_name").innerText = sessionStorage.getItem("username");
+            document.getElementById("my_id").innerText = sessionStorage.getItem("ID")
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

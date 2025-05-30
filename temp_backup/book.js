@@ -1,4 +1,3 @@
-
 const googleBooksApiKey = 'AIzaSyA2tHYAIxL3veZZYftM7LHnLZD8f-7plAQ'; // 실제 구글 Books API 키
 
 // Google Books API 호출 함수

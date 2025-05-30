@@ -1,0 +1,24 @@
+.keyword {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #f0f0f0; /* 연한 회색 배경 */
+  color: #555;              /* 짙은 회색 글씨 */
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.keyword:hover {
+  background-color: #dcdcdc; /* 살짝 더 진한 회색으로 호버 효과 */
+}
+
+.card {
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+
