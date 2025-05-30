@@ -1,66 +1,137 @@
-<!-- movie-detail.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>영화 상세 페이지</title>
-  <link rel="stylesheet" href="index.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <script>
-    const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
 
+    body{
+      padding: 0px 30px;
+    }
+    .action-card {
+  width: 136px;
+  height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 
-// movie-detail.html 페이지에서 URL 파라미터 받기
-    const urlParams = new URLSearchParams(window.location.search);
-    const movieCd = urlParams.get('movieCd');
+  padding: 0px 10px;
 
-    // movieCd 콘솔에 찍어보기 (디버깅)
-    console.log(movieCd);  // movieCd 값이 제대로 출력되는지 확인하세요.
+  transition: transform 0.2s;
+}
 
-    // movieCd가 존재하면 API를 호출해 상세 정보를 가져오기
-    if (movieCd) {
-    getMovieDetails(movieCd);  // 이 함수는 영화 상세 정보를 가져오는 함수입니다.
+.action-icon {
+  font-size: 3rem; 
+  line-height: 1;
+}
+
+.action-text {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.review-card {
+  min-width: 300px;
+  max-width: 300px;
+  padding: 1rem;
+  height: 240px;
+  overflow: hidden;
+}
+
+    .scrolling-wrapper {
+      overflow-x: auto;
+      display: flex;
+      gap: 1.5rem;
+      scroll-behavior: smooth;
+      padding-bottom: 1rem;
     }
 
-    async function getMovieDetails(movieCd) {
-    const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${kobisKey}&movieCd=${movieCd}`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    // 영화 정보가 있으면 출력
-    if (data.movieInfoResult && data.movieInfoResult.movieInfo) {
-        const movie = data.movieInfoResult.movieInfo;
-        document.getElementById('movie-title').textContent = movie.movieNm;
-        document.getElementById('movie-description').textContent = movie.openDt ? `개봉일: ${movie.openDt}` : '개봉일 정보 없음';
-        document.getElementById('movie-director').textContent = movie.directors.map(d => d.directorNm).join(', ') || '정보 없음';
-
-        // 포스터 설정
-        const posterUrl = `https://image.tmdb.org/t/p/w500${movie.posterPath}`;  // 포스터 경로는 KOBIS에서 받을 수 없음
-        document.getElementById('movie-poster').src = posterUrl;
-    } else {
-        document.getElementById('movie-title').textContent = '영화 정보 없음';
-        document.getElementById('movie-description').textContent = '상세 정보 없음';
-        document.getElementById('movie-director').textContent = '감독 정보 없음';
-    }
+    .scroll-arrow {
+      font-size: 2rem;
+      cursor: pointer;
+      user-select: none;
     }
 
+    .review-card {
+      min-width: 300px;
+      max-width: 300px;
+      padding: 1rem;
+    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (movieCd) {
-        getMovieDetails(movieCd);
-      }
-    });
-  </script>
+    footer {
+      margin-top: 100px; /* 푸터 가림 방지용 여백 */
+    }
+  </style>
 </head>
 <body>
-  <div class="container py-4">
-    <h1 id="movie-title">영화 제목</h1>
-    <img id="movie-poster" src="https://via.placeholder.com/500x750?text=No+Image" alt="Movie Poster" class="img-fluid mb-3">
-    <p id="movie-description">개봉일 정보 없음</p>
-    <p id="movie-director">감독: 정보 없음</p>
+  <div id="header"></div>
+
+  <div class="container my-5">
+    <div class="row align-items-start">
+      <!-- 포스터 -->
+      <div class="col-md-4">
+        <img id="moviePoster" src="" alt="영화 포스터" class="img-fluid">
+      </div>
+
+<!-- 영화 정보 -->
+<div class="col-md-8">
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <!-- 제목 + 감독/배우 묶음 -->
+    <div class="flex-grow-1">
+      <h2 id="movieTitle" class="mb-1">영화 제목</h2>
+
+      <br>
+
+      <p class="mb-1"><strong>감독:</strong></p>
+      <div id="director" class="d-flex gap-2 mb-2 flex-wrap"></div>
+
+      <p class="mb-1"><strong>출연 배우:</strong></p>
+      <div id="actors" class="d-flex gap-2 mb-0 flex-wrap"></div>
+    </div>
+
+    <!-- 찜/좋아요/리뷰 카드 -->
+    <div class="d-flex gap-3 ms-3">
+      <div class="action-card" onclick="alert('+ 찜 기능 예정')">
+        <div class="action-icon">📌</div>
+        <div class="action-text">찜</div>
+      </div>
+      <div class="action-card" onclick="alert('♥ 좋아요 기능 예정')">
+        <div class="action-icon">❤️</div>
+        <div class="action-text">좋아요</div>
+      </div>
+      <div class="action-card" onclick="alert('✎ 리뷰 작성 팝업 예정')">
+        <div class="action-icon">✎</div>
+        <div class="action-text">리뷰</div>
+      </div>
+    </div>
   </div>
+  <hr>
+
+  <h5>영화 소개</h5>
+  <p id="movieOverview">여기에 영화 소개 내용이 들어갑니다.</p>
+</div>
+
+
+    <!-- 리뷰 리스트 -->
+    <p><hr></p>
+
+    <div class="d-flex align-items-center mb-3">
+      <div class="scroll-arrow me-2" onclick="scrollReviews(-300)">&#x25C0;</div>
+      <div id="reviews" class="scrolling-wrapper flex-nowrap"></div>
+      <div class="scroll-arrow ms-2" onclick="scrollReviews(300)">&#x25B6;</div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- JS -->
+  <script>
+    fetch('header.html').then(res => res.text()).then(data => document.getElementById('header').innerHTML = data);
+    fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+  <script src="movie-detail.js"></script>
 </body>
 </html>
-

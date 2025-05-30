@@ -40,6 +40,13 @@ function renderBooks(books) {
   books.forEach(book => {
     const card = document.createElement("div");
     card.className = "card mb-4";
+    card.style.cursor = "pointer";
+
+    // 클릭 시 book-detail.html로 이동
+    card.addEventListener("click", () => {
+      const encodedTitle = encodeURIComponent(book.title);
+      window.location.href = `book-detail.html?title=${encodedTitle}`;
+    });
 
     card.innerHTML = `
       <div class="d-flex">
