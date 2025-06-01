@@ -45,7 +45,7 @@ async function search(search) { //검색 함수
     }
 
     for (const movie of movies) {
-        const div = document.getElementById("movieSearchList");
+        const container = document.getElementById("movieSearchList");
         //div스타일지정
 
         const title = movie.movieNm; //영화제목
@@ -78,7 +78,7 @@ async function search(search) { //검색 함수
         </div>
         `;
 
-        div.appendChild(card);
+        container.appendChild(card);
     }
 }
 
