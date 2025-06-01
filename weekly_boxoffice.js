@@ -15,7 +15,7 @@ const targetDt = `${year}${month}${day}`;
 //영화상세정보 api
 const url = `https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${API_KEY}&targetDt=${targetDt}&weekGb=0`;
 
-async function getPoster(title) {//포스터이미지 링크로 가져오기
+async function getPoster(title) {
     //영화포스터이미지 api
   const tmdbURL = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}&language=ko`;
   const res = await fetch(tmdbURL);
@@ -43,7 +43,7 @@ async function loadCarouselBoxOffice() {
 
     const carouselInner = document.querySelector(".carousel-inner"); //클래스지정정
     const indicators = document.querySelector(".carousel-indicators");
-    carouselInner.innerHTML = ""; //이건 왜 있는거지지
+    carouselInner.innerHTML = ""; 
     indicators.innerHTML = "";
 
     const groupSize = getResponsiveGroupSize();
@@ -69,19 +69,25 @@ async function loadCarouselBoxOffice() {
         ul.style.padding = "0";
 
         for (const movie of group) {
-            const li = document.createElement("li");
-            li.style.textAlign = "center"; //텍스트정렬?
-            li.style.width = "180px";
+          const movieCd = movie.movieCd;
 
-            const poster = await getPoster(movie.movieNm);
-            li.innerHTML =`
-                <div>
-                    <img src="${poster || 'https://via.placeholder.com/150x220?text=No+Image'}" alt="${movie.movieNm}" class="d-block w-100" style="height: 220px; object-fit: cover; border-radius: 5px;">
-                    <p style="font-size: 0.9rem; margin-top: 5px;"><strong>${movie.rank}위</strong> - ${movie.movieNm}</p>
-                </div>
-                `;
+          const li = document.createElement("li");
+          li.style.textAlign = "center"; //텍스트정렬
+          li.style.width = "180px";
+          li.style.cursor = 'pointer';
+          li.addEventListener('click', () => {
+          window.location.href = `movie-detail.html?movieCd=${movieCd}`;
+          });
 
-                ul.appendChild(li);
+          const poster = await getPoster(movie.movieNm);
+          li.innerHTML =`
+            <div>
+                <img src="${poster || 'https://via.placeholder.com/150x220?text=No+Image'}" alt="${movie.movieNm}" class="d-block w-100" style="height: 220px; object-fit: cover; border-radius: 5px;">
+                <p style="font-size: 0.9rem; margin-top: 5px;"><strong>${movie.rank}위</strong> - ${movie.movieNm}</p>
+            </div>
+            `;
+
+          ul.appendChild(li);
         }
 
         div.appendChild(ul);
