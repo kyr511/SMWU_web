@@ -91,18 +91,12 @@ button {
     width: 300px;
 }
 
-#movierank {
-    text-align: center;
+section {
+  margin-top: 15px;
 }
 
-#reviewli {
-    margin: 30px auto;
-}
-#reviewli div {
-    display: flex;
-    flex-direction: row;
-    margin: 30px auto;
-    padding: 30px;
+#movierank, #bookrank {
+    text-align: center;
 }
 
 /*마이페이지*/

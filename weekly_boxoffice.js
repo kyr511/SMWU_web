@@ -1,4 +1,4 @@
-//weekly_boxoffis.js
+//weekly_boxoffice.js
 
 const API_KEY = "8f30f3cd89878ffb75c8b9a4ca3c7d31";
 const TMDB_KEY = "c195cf58dc67be7d7345c99c5a852741";
@@ -41,8 +41,8 @@ async function loadCarouselBoxOffice() {
 
     document.getElementById("movierank").innerText = `주간 박스오피스`;
 
-    const carouselInner = document.querySelector(".carousel-inner"); //클래스지정정
-    const indicators = document.querySelector(".carousel-indicators");
+    const carouselInner = document.querySelector("#carousel-1-inner"); //클래스지정정
+    const indicators = document.querySelector("#carousel-1-indicators");
     carouselInner.innerHTML = ""; 
     indicators.innerHTML = "";
 
@@ -60,10 +60,10 @@ async function loadCarouselBoxOffice() {
         div.className = `carousel-item${ i===0 ? " active" : ""}`;//첫번째 요소면 active클래스
         div.setAttribute("data-bs-interval", "5000");
 
-        const ul = document.createElement("ul"); //css 설정-> css파일에서 걍 하면안되나/근데 이거 다른 ul에도 같이 적용되는건가가
-        ul.style.listStyle = "none"; 
+        const ul = document.createElement("ul"); 
         ul.style.display = "flex";
         ul.style.justifyContent = "center";
+        ul.style.listStyle = "none";
         ul.style.gap = "10px";
         ul.style.flexWrap = "wrap";
         ul.style.padding = "0";
@@ -94,15 +94,15 @@ async function loadCarouselBoxOffice() {
         carouselInner.appendChild(div);
 
         const btn = document.createElement("button");
-    btn.type = "button";
-    btn.setAttribute("data-bs-target", "#carouselExampleDark");
-    btn.setAttribute("data-bs-slide-to", i.toString());
-    if (i === 0) {
-      btn.classList.add("active");
-      btn.setAttribute("aria-current", "true");
-    }
-    btn.setAttribute("aria-label", `Slide ${i + 1}`);
-    indicators.appendChild(btn);
+        btn.type = "button";
+        btn.setAttribute("data-bs-target", "#carousel-1");
+        btn.setAttribute("data-bs-slide-to", i.toString());
+        if (i === 0) {
+          btn.classList.add("active");
+          btn.setAttribute("aria-current", "true");
+        }
+        btn.setAttribute("aria-label", `Slide ${i + 1}`);
+        indicators.appendChild(btn);
   }
 };
 
@@ -114,5 +114,6 @@ window.addEventListener("resize", () => {
     clearTimeout(resizeTimer); // 타이머 초기화
     resizeTimer = setTimeout(() => {
         loadCarouselBoxOffice(); // 마지막 resize 이벤트에서만 실행
-    }, 500); // 0.5초 후 실행
+        loadCarouselBookRank();
+      }, 100); // 0.1초 후 실행
 });

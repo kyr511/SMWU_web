@@ -26,6 +26,16 @@
   </main>
 
   <div id="footer"></div>
+  <script>
+        function moveToSearchPage(event) { // 검색 버튼 클릭 시 search.html로 이동
+            event.preventDefault();
+            const search = document.getElementById("search").value.trim();
+            if (search) {
+                window.location.href = `search.html?query=${encodeURIComponent(search)}`;
+            }
+        }
+  </script>
+  <script src="userinfo.js"></script>
   <script src="book.js"></script>
   <script>
     // header, footer 불러오기
