@@ -56,14 +56,16 @@ function renderBooks(books) {
     });
 
     card.innerHTML = `
-      <div class="d-flex">
-        <img src="${book.image}" alt="${book.title}" class="img-thumbnail" style="width: 150px; height: 220px; object-fit: cover;" />
+      <div class="d-flex mb-3">
+        <div class="flex-shrink-0">
+        <img src="${book.image}" alt="${book.title}" class="img-fluid" style="width: 150px; height: 220px; object-fit: cover;">
+        </div>
         <div class="ms-3">
-          <h5>${book.title}</h5>
-          <p>작가: ${book.author}</p>
-          <p>출간일: ${book.date}</p>
-          <p>판매가: ${book.price.toLocaleString()}원</p>
-          <p>리뷰: ${book.reviewCnt}개 | 좋아요: ${book.likeCnt}개</p>
+          <h5 class="card-title">${book.title}</h5>
+          <p class="card-text">작가: ${book.author}</p>
+          <p class="card-text">출간일: ${book.date}</p>
+          <p class="card-text">판매가: ${book.price.toLocaleString()}원</p>
+          <p class="card-text">리뷰: ${book.reviewCnt}개 | 좋아요: ${book.likeCnt}개</p>
         </div>
       </div>
     `;
