@@ -29,6 +29,17 @@
                             <a class="nav-link active" aria-current="page" href="mypage.html">마이 페이지</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0"> <!--로그인회원가입-->
+                        <li class="nav-item"> <!--로그인 여부에 따라 뜨는 버튼이 다르게-->
+                            <a class="nav-link active text-secondary" aria-current="page" href="login.html">로그인</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-secondary" aria-current="page" href="signup.html">회원가입</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-secondary" aria-current="page" onclick="logout()" style="cursor: pointer;">로그아웃</a>
+                        </li>
+                    </ul>
                 <form class="d-flex" onsubmit="moveToSearchPage(event)"> <!--검색창-->
                     <div class="position-relative">
                         <input class="form-control rounded-pill pe-5" type="search" placeholder="제목 검색" aria-label="Search" id="search">
@@ -51,9 +62,9 @@
                 <p>@<span id="my_id"></span></p>
             </div>
             <div id="mylist">
-                <a href="">나의 찜<br/><p>12</p></a> <!--임시숫자 지정-->
-                <a href="likelist.html">나의 좋아요<br/><p>13</p></a>
-                <a href="reviewlist.html">나의 리뷰<br/><p>3</p></a>
+                <a href="wishlist.html">나의 찜<br/><p id="wish_count">: 0개</p></a> <!--임시숫자 지정-->
+                <a href="likelist.html">나의 좋아요<br/><p id="like_count">: 0개</p></a>
+                <a href="reviewlist.html">나의 리뷰<br/><p id="review_count">: 0개</p></a>
             </div>
         </div>
     </main>
@@ -91,6 +102,11 @@
         }
     </script>
     <script src="userinfo.js"></script>
+    <script> //찜&좋아요&리뷰 개수 업데이트
+        document.getElementById("wish_count").innerText = `: ${getWishCount()}개`
+        document.getElementById("like_count").innerText = `: ${getLikeCount()}개`
+        //document.getElementById("review_count").innerText = `${getReviewCount()}개`
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

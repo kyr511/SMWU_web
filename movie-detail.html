@@ -105,12 +105,12 @@
 
     <!-- 찜/좋아요/리뷰 카드 -->
     <div class="d-flex gap-3 ms-3">
-      <div class="action-card" onclick="alert('+ 찜 기능 예정')">
+      <div class="action-card" onclick="addMovieWish(movieCd)">
         <div class="action-icon">📌</div>
         <div class="action-text">찜</div>
       </div>
-      <div class="action-card" onclick="alert('♥ 좋아요 기능 예정')">
-        <div class="action-icon">❤️</div>
+      <div class="action-card" onclick="addMovieLike(movieCd)">
+        <div class="action-icon">♥</div>
         <div class="action-text">좋아요</div>
       </div>
       <div class="action-card" onclick="alert('✎ 리뷰 작성 팝업 예정')">
@@ -144,5 +144,15 @@
     fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
   </script>
   <script src="movie-detail.js"></script>
+  <script>
+        function moveToSearchPage(event) { // 검색 버튼 클릭 시 search.html로 이동
+            event.preventDefault();
+            const search = document.getElementById("search").value.trim();
+            if (search) {
+                window.location.href = `search.html?query=${encodeURIComponent(search)}`;
+            }
+        }
+    </script>
+    <script src="userinfo.js"></script>
 </body>
 </html>

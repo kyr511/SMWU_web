@@ -3,7 +3,7 @@ const KOBIS_KEY = "8f30f3cd89878ffb75c8b9a4ca3c7d31";
 const TMDB_KEY = "c195cf58dc67be7d7345c99c5a852741";
 
 //책api
-
+const KAKAO_API_KEY = '5ff0b1187a7ca2ad946b92fdce92aced';
 
 //감독 가져오기
 async function getDirector(movieCd) {
@@ -32,8 +32,30 @@ async function getPoster(title) {
   return null;
 }
 
-    
+async function getBookInfo(query) { //책 정보 가져오기
+  const url = `https://dapi.kakao.com/v3/search/book?&query=${encodeURIComponent(query)}&size=5`;
+
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `KakaoAK ${KAKAO_API_KEY}`
+    }
+  });
+
+  const data = await res.json();
+
+  return data.documents.map(book => ({
+    title: book.title,
+    author: book.authors.join(", ") || "작가 정보 없음",
+    date: book.datetime?.split("T")[0] || "출간일 없음",
+    image: book.thumbnail || "https://via.placeholder.com/150x220?text=No+Image",//표지이미지지
+    price: book.sale_price || Math.floor(Math.random() * 30000 + 5000),
+    reviewCnt: Math.floor(Math.random() * 300), // 더미
+    likeCnt: Math.floor(Math.random() * 100) // 더미
+  }));
+}
+
 async function search(search) { //검색 함수
+    //영화 검색 부분----------
     const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=${KOBIS_KEY}&movieNm=${encodeURIComponent(search)}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -45,7 +67,7 @@ async function search(search) { //검색 함수
     }
 
     for (const movie of movies) {
-        const div = document.getElementById("movieSearchList");
+        const container = document.getElementById("movieSearchList");
         //div스타일지정
 
         const title = movie.movieNm; //영화제목
@@ -78,9 +100,53 @@ async function search(search) { //검색 함수
         </div>
         `;
 
-        div.appendChild(card);
+        container.appendChild(card);
+    }
+
+    //책 검색 부분------------
+    const books = await getBookInfo(search)
+
+    if (!books || books.length === 0) {
+        document.getElementById("movieSearchList").innerHTML = "<p>검색 결과가 없습니다.</p>";
+        return;
+    }
+
+    for (const book of books) {
+        const container = document.getElementById("bookSearchList");
+
+        const title = book.title;
+        const openDt = book.date; 
+        const posterUrl = book.image;
+        const author = book.author; 
+
+        const card = document.createElement('div');
+        card.className = 'card mb-4';
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+        window.location.href = `book-detail.html?title=${encodeURIComponent(book.title)}`;
+          });
+
+        const reviewCnt = Math.floor(Math.random() * 500);//좋아요 리뷰 수 임의 설정
+        const likeCnt = Math.floor(Math.random() * 1000);//이후에 수정하기 내꺼 +1하는 형식??
+
+        card.innerHTML = `
+        <div class="d-flex mb-3">
+            <div class="flex-shrink-0">
+            <img src="${posterUrl}" class="img-fluid" alt="${title}" style="width: 150px; height: 225px; object-fit: cover;">
+            </div>
+            <div class="ms-3">
+            <h5 class="card-title"><h4>${title}</h4></h5>
+            <p class="card-text">출간일: ${openDt || '정보 없음'}</p>
+            <p class="card-text">작가: ${author || '정보 없음'}</p>
+            <p class="card-text">리뷰: ${reviewCnt}개 | 좋아요: ${likeCnt}개</p>
+            </div>
+        </div>
+        `;
+
+        container.appendChild(card);
     }
 }
+
 
 //다른 페이지에서 검색어를 넘겨받는 코드부분
 const params = new URLSearchParams(window.location.search); //window.location.search = ?query=영화제목
