@@ -119,7 +119,7 @@ function getMovieWishlist() { //영화 찜 목록 배열 가져오기
     return user.MovieWishlist || [];
 }
 
-function getMovieWishlist() { //책 찜 목록 배열 가져오기
+function getBookWishlist() { //책 찜 목록 배열 가져오기
     let user = JSON.parse(localStorage.getItem("user"));
     return user.BookWishlist || [];
 }
@@ -180,7 +180,7 @@ function addBookLike(title) { //책 좋아요 추가
     localStorage.setItem("user", JSON.stringify(user));//변경사항 저장
 }
 
-function getMovieLikelist() { //영화 좋아요요 목록 배열 가져오기
+function getMovieLikelist() { //영화 좋아요 목록 배열 가져오기
     let user = JSON.parse(localStorage.getItem("user"));
     return user.MovieLikelist || [];
 }
@@ -190,7 +190,7 @@ function getBookLikelist() { //책 좋아요 목록 배열 가져오기
     return user.BookLikelist || [];
 }
 
-function getLikeCount() {//좋아요목록개수(영화+책)
+function getLikeCount() { //좋아요목록개수(영화+책)
     const user = JSON.parse(localStorage.getItem("user"));
     return ((user.MovieLikelist || []).length + (user.BookLikelist || []).length);
 }

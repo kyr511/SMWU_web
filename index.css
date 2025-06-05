@@ -92,7 +92,7 @@ button {
 }
 
 section {
-  margin-top: 15px;
+  margin: 15px;
 }
 
 #movierank, #bookrank {
@@ -136,8 +136,3 @@ section {
     text-decoration: none;
     color:#1a1a1a;
 }
-
-
-
-
-
