@@ -106,15 +106,15 @@
     <!-- 찜/좋아요/리뷰 카드 -->
     <div class="d-flex gap-3 ms-3">
       <div class="action-card" onclick="addMovieWish(movieCd)">
-        <div class="action-icon">📌</div>
+        <div class="action-icon" style="cursor: pointer;">📌</div>
         <div class="action-text">찜</div>
       </div>
       <div class="action-card" onclick="addMovieLike(movieCd)">
-        <div class="action-icon">♥</div>
+        <div class="action-icon" style="cursor: pointer;">♥</div>
         <div class="action-text">좋아요</div>
       </div>
       <div class="action-card" onclick="alert('✎ 리뷰 작성 팝업 예정')">
-        <div class="action-icon">✎</div>
+        <div class="action-icon" style="cursor: pointer;">✎</div>
         <div class="action-text">리뷰</div>
       </div>
     </div>
@@ -152,7 +152,7 @@
                 window.location.href = `search.html?query=${encodeURIComponent(search)}`;
             }
         }
-    </script>
-    <script src="userinfo.js"></script>
+  </script>
+  <script src="userinfo.js"></script>
 </body>
 </html>

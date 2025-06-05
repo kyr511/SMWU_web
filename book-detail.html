@@ -29,8 +29,6 @@
       margin-top: 0.5rem;
     }
 
-    
-
     .review-card {
       min-width: 300px;
       max-width: 300px;
@@ -127,5 +125,15 @@
     fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
   </script>
   <script src="book-detail.js"></script>
+  <script>
+        function moveToSearchPage(event) { // 검색 버튼 클릭 시 search.html로 이동
+            event.preventDefault();
+            const search = document.getElementById("search").value.trim();
+            if (search) {
+                window.location.href = `search.html?query=${encodeURIComponent(search)}`;
+            }
+        }
+  </script>
+  <script src="userinfo.js"></script>
 </body>
 </html>
