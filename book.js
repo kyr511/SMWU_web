@@ -26,12 +26,19 @@ async function fetchBooks(query = "자바스크립트") {
 
 function sortBooks(books, option) {
   return [...books].sort((a, b) => {
-    if (option === "latest") return new Date(b.date) - new Date(a.date);  // 최신순 정렬 추가
+    if (option === "latest") {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      if (isNaN(dateA)) return 1;  // a 날짜 없으면 뒤로
+      if (isNaN(dateB)) return -1; // b 날짜 없으면 뒤로
+      return dateB - dateA;
+    }
     if (option === "reviewCnt") return b.reviewCnt - a.reviewCnt;
     if (option === "likeCnt") return b.likeCnt - a.likeCnt;
     return 0;
   });
 }
+
 
 function renderBooks(books) {
   const container = document.getElementById("book-list");

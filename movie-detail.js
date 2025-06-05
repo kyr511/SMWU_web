@@ -1,3 +1,5 @@
+//movie-detail.js
+
 const urlParams = new URLSearchParams(window.location.search);
 const movieCd = urlParams.get('movieCd');
 
