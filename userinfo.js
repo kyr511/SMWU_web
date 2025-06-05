@@ -89,7 +89,7 @@ function addMovieWish(movieCd) { //영화 찜 추가
     localStorage.setItem("user", JSON.stringify(user));//변경사항 저장
 }
 
-function addBookWish(title) { //책 찜 추가
+function addBookWish(bookId) { //책 찜 추가
     if (sessionStorage.getItem("loggedIn") !== "true") {//로그인 여부 확인
             alert("로그인이 필요한 서비스입니다.");
             window.location.href = "login.html";
@@ -101,9 +101,9 @@ function addBookWish(title) { //책 찜 추가
         user.BookWishlist= [];
     }
 
-    const index = user.BookWishlist.indexOf(title);
+    const index = user.BookWishlist.indexOf(bookId);
     if (index === -1) {
-        user.BookWishlist.push(title);
+        user.BookWishlist.push(bookId);
         localStorage.setItem("user", JSON.stringify(user));
         alert("찜 목록에 추가되었습니다.");
     } else {
@@ -155,7 +155,7 @@ function addMovieLike(movieCd) { //영화 좋아요 추가
     localStorage.setItem("user", JSON.stringify(user));//변경사항 저장
 }
 
-function addBookLike(title) { //책 좋아요 추가
+function addBookLike(bookId) { //책 좋아요 추가
     if (sessionStorage.getItem("loggedIn") !== "true") {//로그인 여부 확인
             alert("로그인이 필요한 서비스입니다.");
             window.location.href = "login.html";
@@ -167,9 +167,9 @@ function addBookLike(title) { //책 좋아요 추가
         user.BookLikelist= [];
     }
 
-    const index = user.BookLikelist.indexOf(title); 
+    const index = user.BookLikelist.indexOf(bookId); 
     if (index === -1) {
-        user.BookLikelist.push(title);
+        user.BookLikelist.push(bookId);
         localStorage.setItem("user", JSON.stringify(user));
         alert("좋아요 목록에 추가되었습니다.");
     } else {    //좋아요 삭제
