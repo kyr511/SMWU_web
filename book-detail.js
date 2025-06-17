@@ -30,7 +30,7 @@ async function fetchBookDetail() {
     book.authors.forEach(name => {
       const badge = document.createElement('a');
       badge.className = 'badge bg-primary text-white text-decoration-none';
-      badge.href = `profile.html?name=${encodeURIComponent(name)}`;
+      badge.href = `book-profile.html?name=${encodeURIComponent(name)}`;
       badge.textContent = name;
       authorDiv.appendChild(badge);
     });
