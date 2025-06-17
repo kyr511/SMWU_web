@@ -68,7 +68,48 @@
   </style>
 </head>
 <body>
-  <div id="header"></div>
+  <header> <!--사이트이름, 메뉴창, 검색창-->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">사이트 이름</a> <!--사이트이름-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--상단메뉴바-->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="movie.html">영화</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="book.html">책</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="mypage.html">마이 페이지</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0"> <!--로그인회원가입-->
+                        <li class="nav-item"> <!--로그인 여부에 따라 뜨는 버튼이 다르게-->
+                            <a class="nav-link active text-secondary" aria-current="page" href="login.html">로그인</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-secondary" aria-current="page" href="signup.html">회원가입</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-secondary" aria-current="page" onclick="logout()" style="cursor: pointer;">로그아웃</a>
+                        </li>
+                    </ul>
+                <form class="d-flex" onsubmit="moveToSearchPage(event)"> <!--검색창-->
+                    <div class="position-relative">
+                        <input class="form-control rounded-pill pe-5" type="search" placeholder="제목 검색" aria-label="Search" id="search">
+                        <button class="btn btn-outline-none position-absolute end-0 translate-middle-y me-1 bg-transparent border-0" style="top: 45%;" type="submit" id="button-addon2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </header>
 
   <div class="container my-5">
     <div class="row align-items-start">
@@ -89,15 +130,37 @@
 
           <div class="d-flex gap-3 ms-3">
             <div class="action-card" onclick="addBookWish(bookId)">
-              <div class="action-icon" style="cursor: pointer;">📌</div>
+              <div class="action-icon" style="cursor: pointer;">✓</div>
               <div class="action-text">찜</div>
             </div>
             <div class="action-card" onclick="addBookLike(bookId)">
-              <div class="action-icon" style="cursor: pointer;">❤️</div>
+              <div class="action-icon" style="cursor: pointer;">♥</div>
               <div class="action-text">좋아요</div>
             </div>
-            <div class="action-card" onclick="alert('✎ 리뷰 작성 팝업 예정')">
-              <div class="action-icon">✎</div>
+            <div class="action-card">
+              <div class="action-icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">✎</div><!--리뷰창(부트스트랩 모달이용)-->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">리뷰 쓰기</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="review_form">
+                          <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="review"></textarea>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="submit" class="btn btn-primary">제출하기</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <div class="action-text">리뷰</div>
             </div>
           </div>
@@ -118,12 +181,20 @@
     </div>
   </div>
 
-  <div id="footer"></div>
+  <footer> 
+      <nav class="navbar navbar-expand-lg fixed-bottom navbar-dark bg-dark">
+          <div class="container-fluid">
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> <!--하단메뉴바-->
+                <div class="navbar-nav">                        <a class="nav-link active" aria-current="page" href="websiteinfo.html">사이트 소개</a>
+                      <a class="nav-link active" aria-current="page" href="sitemap.html">사이트 맵</a>
+                      <a class="nav-link active" aria-current="page" href="developer.html">개발자 소개</a>
+                  </div>
+              </div>
+          </div>
+      </nav>
+  </footer>
 
-  <script>
-    fetch('header.html').then(res => res.text()).then(data => document.getElementById('header').innerHTML = data);
-    fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
-  </script>
+
   <script src="book-detail.js"></script>
   <script>
         function moveToSearchPage(event) { // 검색 버튼 클릭 시 search.html로 이동
@@ -133,6 +204,20 @@
                 window.location.href = `search.html?query=${encodeURIComponent(search)}`;
             }
         }
+  </script>
+  <script>
+    document.getElementById("review_form").addEventListener("submit", function (e) {
+      e.preventDefault(); // 새로고침 방지
+
+      const reviewText = document.getElementById("review").value.trim();
+
+      if (!reviewText) {
+        alert("리뷰를 입력해주세요.");
+        return;
+      }
+
+      addBookReview(bookId, reviewText);
+    });
   </script>
   <script src="userinfo.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

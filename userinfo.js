@@ -197,6 +197,49 @@ function getLikeCount() { //좋아요목록개수(영화+책)
 
 
 //리뷰 목록 관리-------------
+function addMovieReview(movieCd, review) { //리뷰 등록
+    if (sessionStorage.getItem("loggedIn") !== "true") {//로그인 여부 확인
+            alert("로그인이 필요한 서비스입니다.");
+            window.location.href = "login.html";
+            return
+      }
 
+    //딕셔너리 {movieCd: 리뷰 문자열}
+    const user = JSON.parse(localStorage.getItem("user")) || {};
+    user.MovieReviewlist = user.MovieReviewlist || {};
+    user.MovieReviewlist[movieCd] = review;
+    localStorage.setItem("user", JSON.stringify(user));
+    alert("리뷰 등록이 완료되었습니다.");
+}
+
+function addBookReview(BookId, review) { //리뷰 등록
+    if (sessionStorage.getItem("loggedIn") !== "true") {//로그인 여부 확인
+            alert("로그인이 필요한 서비스입니다.");
+            window.location.href = "login.html";
+            return
+      }
+
+    //딕셔너리 {BookId: 리뷰 문자열}   
+    const user = JSON.parse(localStorage.getItem("user")) || {};
+    user.BookReviewlist = user.BookReviewlist || {};
+    user.BookReviewlist[BookId] = review;
+    localStorage.setItem("user", JSON.stringify(user));
+    alert("리뷰 등록이 완료되었습니다.");
+}
+
+function getMovieReviewlist() { //영화 리뷰 배열 가져오기
+    let user = JSON.parse(localStorage.getItem("user"));
+    return user.MovieReviewlist || {};
+}
+
+function getBookReviewlist() { //책 리뷰 목록 배열 가져오기
+    let user = JSON.parse(localStorage.getItem("user"));
+    return user.BookReviewlist || {};
+}
+
+function getReviewCount() { //리뷰목록개수(영화+책)
+    const user = JSON.parse(localStorage.getItem("user"));
+    return ((Object.keys(user.MovieReviewlist || {})).length + (Object.keys(user.BookReviewlist || {})).length);
+}//딕셔너리 길이-> 키 리스트의 길이
 
 updateUI(); //페이지 로드 시 로그인 상태 반영하기
