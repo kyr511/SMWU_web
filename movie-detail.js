@@ -61,11 +61,16 @@ async function fetchMovieDetail() {
 
 function loadDummyReviews() {
   const reviewData = [
-    { username: 'user01', profileImg: 'https://via.placeholder.com/50', text: '정말 감동적인 영화였어요.' },
-    { username: 'user02', profileImg: 'https://via.placeholder.com/50', text: '연출이 뛰어났습니다.' },
-    { username: 'user03', profileImg: 'https://via.placeholder.com/50', text: '배우들의 연기가 인상 깊었어요.' },
-    { username: 'user04', profileImg: 'https://via.placeholder.com/50', text: '스토리가 정말 좋아요!' }
+    { username: 'user01', profileImg: '임시프로필.jpeg', text: '정말 감동적인 영화였어요.' },
+    { username: 'user02', profileImg: '임시프로필.jpeg', text: '연출이 뛰어났습니다.' },
+    { username: 'user03', profileImg: '임시프로필.jpeg', text: '배우들의 연기가 인상 깊었어요.' },
+    { username: 'user04', profileImg: '임시프로필.jpeg', text: '스토리가 정말 좋아요!' }
   ];
+
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (user.MovieReviewlist || user.MovieReviewlist[movieCd]){
+    reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.MovieReviewlist[movieCd] });
+  }
 
   const reviewContainer = document.getElementById('reviews');
   reviewContainer.innerHTML = '';

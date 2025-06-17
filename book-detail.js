@@ -47,11 +47,16 @@ async function fetchBookDetail() {
 
 function loadDummyReviews() {
   const reviewData = [
-    { username: 'reader01', profileImg: 'https://via.placeholder.com/50', text: '정말 좋은 책이에요.' },
-    { username: 'reader02', profileImg: 'https://via.placeholder.com/50', text: '내용이 깊이 있었어요.' },
-    { username: 'reader03', profileImg: 'https://via.placeholder.com/50', text: '재밌게 읽었어요!' },
-    { username: 'reader04', profileImg: 'https://via.placeholder.com/50', text: '추천합니다!' }
+    { username: 'reader01', profileImg: '임시프로필.jpeg' , text: '정말 좋은 책이에요.' },
+    { username: 'reader02', profileImg: '임시프로필.jpeg' , text: '내용이 깊이 있었어요.' },
+    { username: 'reader03', profileImg: '임시프로필.jpeg' , text: '재밌게 읽었어요!' },
+    { username: 'reader04', profileImg: '임시프로필.jpeg' , text: '추천합니다!' }
   ];
+
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (user.BookReviewlist && user.BookReviewlist[bookId]){
+    reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
+  }
 
   const reviewContainer = document.getElementById('reviews');
   reviewContainer.innerHTML = '';
