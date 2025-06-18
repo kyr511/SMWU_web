@@ -6,6 +6,9 @@ const movieCd = urlParams.get('movieCd');
 const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';
 const tmdbKey = 'e563363c78911106e273c1c98c637eac';
 
+console.log(localStorage.getItem("user"));
+
+
 async function fetchMovieDetail() {
   if (!movieCd) return;
 
