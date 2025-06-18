@@ -65,7 +65,7 @@ let reviewData = [ //더미 리뷰(전역변수)
     { username: 'user03', profileImg: '임시프로필.jpeg', text: '배우들의 연기가 인상 깊었어요.' },
     { username: 'user04', profileImg: '임시프로필.jpeg', text: '스토리가 정말 좋아요!' }
   ];
-let user = JSON.parse(localStorage.getItem("user") || {}); //사용자 리뷰 추가하기
+let user = JSON.parse(localStorage.getItem("user") || '{}'); //사용자 리뷰 추가하기
 if (user.MovieReviewlist && user.MovieReviewlist[movieCd]){
   reviewData.unshift({ username: user.username, profileImg: '임시프로필.jpeg' , text: user.MovieReviewlist[movieCd] });
 }
