@@ -19,8 +19,14 @@ async function displayMovieList(lst, mode) {
     container.innerHTML = "";
 
     if (lst.length === 0) {
-        container.innerHTML = "<p>찜한 영화가 없습니다.</p>";
-        return;
+        if (mode === "wish"){
+            container.innerHTML = "<p>찜한 영화가 없습니다.</p>";
+            return;
+        }
+        else if (mode === "like"){
+            container.innerHTML = "<p>좋아요한 영화가 없습니다.</p>";
+            return;
+        }
     }
 
     for (const movieCd of lst) {
@@ -115,7 +121,7 @@ function deleteMovie(movieCd, mode) {
         addMovieWish(movieCd); 
     } else if (mode === "like") {
         addMovieLike(movieCd); 
-    } else if (mode == "review") {
+    } else if (mode === "review") {
         delete user.MovieReviewlist[movieCd]
         localStorage.setItem("user", JSON.stringify(user));
     }
@@ -129,8 +135,15 @@ async function displayBookList(lst, mode) {
     container.innerHTML = "";
 
     if (lst.length === 0) {
-        container.innerHTML = "<p>찜한 책이 없습니다.</p>";
-        return;
+        if (mode === "wish"){
+            container.innerHTML = "<p>찜한 책이 없습니다.</p>";
+            return;
+        }
+        else if (mode === "like"){
+            container.innerHTML = "<p>좋아요한 책이 없습니다.</p>";
+            return;
+        }
+        
     }
 
     for (const bookId of lst) {
