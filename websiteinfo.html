@@ -6,9 +6,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script type="text/javascript" src="index.js"></script>
+    <style>
+        <style>
+    body {
+  margin: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.slider {
+  display: flex;
+  width: 400%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: #f0f0f0;
+  border-right: 2px solid #ccc;
+  height: calc(100vh - 100px); 
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 2rem;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+  </style>
+    </style>
 </head>
 <body>
     <header> <!--사이트이름, 메뉴창, 검색창-->
@@ -53,6 +102,47 @@
             </div>
         </nav>
     </header>
+    <main>
+        <div class="slider">
+            <div class="slide" id="slide1">
+                <img src="main.png" alt="메인이미지" style="width: 80%; max-width: 600px;">
+                사이트의 메인 화면으로 사이트 사용법, 키워드 검색과<br>
+                박스오피스, 추천 도서 등을 볼 수 있습니다.  
+            </div>
+            <div class="slide" id="slide2">
+                <img src="movie.png" alt="영화" style="width: 80%; max-width: 600px;">
+                상단 헤더 좌측의 "영화" 버튼을 클릭하여 이동하는 영화 목록<br>
+                페이지로, 우측 상단에서 정렬 기준을 변경할 수 있습니다.
+            </div>
+            <div class="slide" id="slide3">
+                <img src="book.png" alt="책" style="width: 80%; max-width: 600px;">
+                상단 헤더 좌측의 "책" 버튼을 클릭하여 이동하는 책 목록<br>
+                페이지로, 우측 상단에서 정렬 기준을 변경할 수 있습니다.
+            </div>
+            <div class="slide" id="slide4">
+                <img src="login.png" alt="로그인" style="width: 80%; max-width: 600px;">
+                상단 헤더 우측의 "로그인" 버튼을 클릭하여 이동하는 로그인<br>
+                페이지입니다.
+            </div>
+            <div class="slide" id="slide5">
+                <img src="create.png" alt="회원가입" style="width: 80%; max-width: 600px;">
+                상단 헤더 우측의 "회원가입" 버튼을 클릭하여 이동하는<br>
+                회원가입 페이지입니다.
+            </div>
+            <div class="slide" id="slide6">
+                <img src="mypage.png" alt="마이페이지" style="width: 80%; max-width: 600px;">
+                로그인 후, 상단 헤더 좌측 "마이페이지" 버튼을 클릭하여<br>
+                이동하는 마이페이지 입니다. 나의 찜, 좋아요, 리뷰 수를<br>
+                확인할 수 있으며 각 버튼을 클릭할 시 각 목록을 열람할<br>
+                수 있습니다.
+            </div>
+
+        </div>
+
+  <button class="nav prev" onclick="moveSlide(-1)">◀</button>
+  <button class="nav next" onclick="moveSlide(1)">▶</button>
+
+    </main>
 
     <footer> 
         <nav class="navbar navbar-expand-lg fixed-bottom navbar-dark bg-dark">
@@ -68,15 +158,22 @@
         </nav>
     </footer>
     <script>
-        function moveToSearchPage(event) { // 검색 버튼 클릭 시 search.html로 이동
-            event.preventDefault();
-            const search = document.getElementById("search").value.trim();
-            if (search) {
-                window.location.href = `search.html?query=${encodeURIComponent(search)}`;
-            }
-        }
-    </script>
-    <script src="userinfo.js"></script>
+    let currentSlide = 0;
+
+function moveSlide(direction) {
+  const slider = document.querySelector('.slider');
+  const totalSlides = document.querySelectorAll('.slide').length;
+
+  currentSlide += direction;
+
+  if (currentSlide < 0) currentSlide = 0;
+  if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+  slider.style.transform = `translateX(-${currentSlide * 100}vw)`;
+}
+
+  </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
