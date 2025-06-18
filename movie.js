@@ -30,8 +30,6 @@ if (directors && directors.length > 0) {
 }
 }
 
-
-
 async function getPosterFromTMDB(title) {
 const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}&language=ko-KR`;
 
