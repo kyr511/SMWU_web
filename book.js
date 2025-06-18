@@ -19,8 +19,8 @@ async function fetchBooks(query = "자바스크립트") {
     date: book.datetime?.split("T")[0] || "출간일 없음",
     image: book.thumbnail || "https://via.placeholder.com/150x220?text=No+Image",
     price: book.sale_price || Math.floor(Math.random() * 30000 + 5000),
-    reviewCnt: Math.floor(Math.random() * 300), // 더미
-    likeCnt: Math.floor(Math.random() * 100) // 더미
+    reviewCnt: Math.floor(Math.random() * 30000), // 더미
+    likeCnt: Math.floor(Math.random() * 30000) // 더미
   }));
 }
 
@@ -33,8 +33,8 @@ function sortBooks(books, option) {
       if (isNaN(dateB)) return -1; // b 날짜 없으면 뒤로
       return dateB - dateA;
     }
-    if (option === "reviewCnt") return b.reviewCnt - a.reviewCnt;
-    if (option === "likeCnt") return b.likeCnt - a.likeCnt;
+    else if (option === "reviewCnt") return b.reviewCnt - a.reviewCnt;
+    else if (option === "likeCnt") return b.likeCnt - a.likeCnt;
     return 0;
   });
 }
@@ -78,10 +78,10 @@ async function initBooks() {
   // 기본 검색어를 책 으로 설정해놓음
 
   // 각 책 reviewCnt와 likeCnt를 0으로 할당
-  books.forEach(book => {
+  /*books.forEach(book => {
     book.reviewCnt = 0;
     book.likeCnt = 0;
-  });
+  });*/
 
   const select = document.getElementById("sortOption");
 

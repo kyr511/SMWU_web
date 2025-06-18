@@ -14,7 +14,7 @@ const data = await response.json();
 // 감독 정보가 있을 경우 반환
 const directors = data.movieInfoResult.movieInfo.directors;
 if (directors && directors.length > 0) {
-    return directors.map(d => d.directorNm).join(', ');
+    return directors.map(d => d.peopleNm).join(', ');
 } else {
     return '정보 없음';
 }
@@ -56,7 +56,7 @@ async function getBookInfo(query) { //책 정보 가져오기
 
 async function search(search) { //검색 함수
     //영화 검색 부분----------
-    const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=${KOBIS_KEY}&movieNm=${encodeURIComponent(search)}`;
+    const url = `https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=${KOBIS_KEY}&movieNm=${encodeURIComponent(search)}`;
     const res = await fetch(url);
     const data = await res.json();
     const movies = data.movieListResult.movieList;

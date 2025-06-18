@@ -52,7 +52,7 @@ const reviewData = [ //더미리뷰(전역변수)
     { username: 'reader04', profileImg: '임시프로필.jpeg' , text: '추천합니다!' }
   ];
 
-let user = JSON.parse(localStorage.getItem("user")); 
+let user = JSON.parse(localStorage.getItem("user") || {}); 
 if (user.BookReviewlist && user.BookReviewlist[bookId]){ //사용자리뷰
   reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
 }

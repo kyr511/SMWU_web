@@ -1,19 +1,4 @@
 // keyword.js
-
-fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-        });
-
-        fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        });
-
-
-
 const tmdbKey = 'e563363c78911106e273c1c98c637eac';
 
 let currentMovies = [];   // 현재 검색된 영화 목록 저장

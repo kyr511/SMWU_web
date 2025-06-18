@@ -24,13 +24,11 @@ const data = await response.json();
 // 감독 정보가 있을 경우 반환
 const directors = data.movieInfoResult.movieInfo.directors;
 if (directors && directors.length > 0) {
-    return directors.map(d => d.directorNm).join(', ');
+    return directors.map(d => d.peopleNm).join(', ');
 } else {
     return '정보 없음';
 }
 }
-
-
 
 async function getPosterFromTMDB(title) {
 const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}&language=ko-KR`;
@@ -63,10 +61,10 @@ async function showMovies() {
 const movies = await kobisApi();
 const container = document.getElementById('movie-list');
 
-// 추후 구현될 데이터: 더미 리뷰 수 & 좋아요 수 추가
+// 더미 리뷰 수 & 좋아요 수
 movies.forEach(movie => {
-movie.reviewCnt = 0; // 추후 구현
-movie.likeCnt = 0;   // 추후 구현
+movie.reviewCnt = Math.floor(Math.random() * 30000);
+movie.likeCnt = Math.floor(Math.random() * 30000); 
 });
 
 // 정렬 함수
