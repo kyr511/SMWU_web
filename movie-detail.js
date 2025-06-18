@@ -59,21 +59,22 @@ async function fetchMovieDetail() {
   }
 }
 
-function loadDummyReviews() {
-  const reviewData = [
+let reviewData = [ //더미 리뷰(전역변수)
     { username: 'user01', profileImg: '임시프로필.jpeg', text: '정말 감동적인 영화였어요.' },
     { username: 'user02', profileImg: '임시프로필.jpeg', text: '연출이 뛰어났습니다.' },
     { username: 'user03', profileImg: '임시프로필.jpeg', text: '배우들의 연기가 인상 깊었어요.' },
     { username: 'user04', profileImg: '임시프로필.jpeg', text: '스토리가 정말 좋아요!' }
   ];
+let user = JSON.parse(localStorage.getItem("user")); //사용자 리뷰 추가하기
+if (user.MovieReviewlist && user.MovieReviewlist[movieCd]){
+  reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.MovieReviewlist[movieCd] });
+}
 
-  let user = JSON.parse(localStorage.getItem("user"));
-  if (user.MovieReviewlist || user.MovieReviewlist[movieCd]){
-    reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.MovieReviewlist[movieCd] });
-  }
-
+function loadDummyReviews() { //리뷰 출력
   const reviewContainer = document.getElementById('reviews');
   reviewContainer.innerHTML = '';
+
+  const isAdmin = GetCookie("mode") === "1"; //관리자 모드 여부
 
   reviewData.forEach(data => {
     const card = document.createElement('div');
@@ -81,6 +82,7 @@ function loadDummyReviews() {
 
     card.innerHTML = `
       <div class="d-flex align-items-center mb-2">
+        ${isAdmin ? `<button class="remove-btn position-absolute top-0 end-0 btn btn-sm btn-light" onclick="event.stopPropagation(); deleteReview('${data.username}');">X</button>` : ""}
         <img src="${data.profileImg}" class="rounded-circle me-2" width="50" height="50">
         <strong>${data.username}</strong>
       </div>
@@ -90,6 +92,14 @@ function loadDummyReviews() {
     reviewContainer.appendChild(card);
   });
 }
+
+function deleteReview(username){
+  const index = reviewData.findIndex(review => review.username === username);
+  reviewData.splice(index, 1);
+  alert(`'${username}'의 리뷰가 삭제되었습니다.`);
+  loadDummyReviews()
+}
+
 
 function scrollReviews(offset) {
   const container = document.getElementById('reviews');

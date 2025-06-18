@@ -45,21 +45,23 @@ async function fetchBookDetail() {
   }
 }
 
-function loadDummyReviews() {
-  const reviewData = [
+const reviewData = [ //더미리뷰(전역변수)
     { username: 'reader01', profileImg: '임시프로필.jpeg' , text: '정말 좋은 책이에요.' },
     { username: 'reader02', profileImg: '임시프로필.jpeg' , text: '내용이 깊이 있었어요.' },
     { username: 'reader03', profileImg: '임시프로필.jpeg' , text: '재밌게 읽었어요!' },
     { username: 'reader04', profileImg: '임시프로필.jpeg' , text: '추천합니다!' }
   ];
 
-  let user = JSON.parse(localStorage.getItem("user"));
-  if (user.BookReviewlist && user.BookReviewlist[bookId]){
-    reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
-  }
+let user = JSON.parse(localStorage.getItem("user")); 
+if (user.BookReviewlist && user.BookReviewlist[bookId]){ //사용자리뷰
+  reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
+}
 
+function loadDummyReviews() {
   const reviewContainer = document.getElementById('reviews');
   reviewContainer.innerHTML = '';
+
+  const isAdmin = GetCookie("mode") === "1"; //관리자 모드 여부
 
   reviewData.forEach(data => {
     const card = document.createElement('div');
@@ -67,6 +69,7 @@ function loadDummyReviews() {
 
     card.innerHTML = `
       <div class="d-flex align-items-center mb-2">
+        ${isAdmin ? `<button class="remove-btn position-absolute top-0 end-0 btn btn-sm btn-light" onclick="event.stopPropagation(); deleteReview('${data.username}');">X</button>` : ""}
         <img src="${data.profileImg}" class="rounded-circle me-2" width="50" height="50">
         <strong>${data.username}</strong>
       </div>
@@ -76,6 +79,14 @@ function loadDummyReviews() {
     reviewContainer.appendChild(card);
   });
 }
+
+function deleteReview(username){
+  const index = reviewData.findIndex(review => review.username === username);
+  reviewData.splice(index, 1);
+  alert(`'${username}'의 리뷰가 삭제되었습니다.`);
+  loadDummyReviews()
+}
+
 
 function scrollReviews(offset) {
   const container = document.getElementById('reviews');

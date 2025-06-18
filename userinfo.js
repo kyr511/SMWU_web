@@ -1,5 +1,29 @@
 // userinfo.js
+//-----------쿠키를 이용한 관리자 아이디 관리 부분------------//
+const Admin = {name: "관리자", ID: "Admin", password: "12345678*"}//관리자 전용 아이디
 
+function GetCookie (name) { //name 쿠키의 값을 가져오는함수
+    let pairs = document.cookie.split(";");
+    for (let i=0; i<pairs.length; i++){
+        let pair = pairs[i].trim();
+        let unit = pair.split("=");
+        if (unit[0] == name)
+            return unescape(unit[1]);
+    }
+    return null;
+}
+
+function SetCookie (name, value, expireDate) { //쿠키 설정 함수: name=value; expires=expireDate
+    let cookieStr = name + "=" + escape(value) + ((expireDate == null)?"":("; expires=" + expireDate.toUTCString()));
+    document.cookie = cookieStr;
+}
+
+let expire = new Date();
+expire.setTime(expire.getTime() + (24*3600*1000));
+//SetCookie("mode", 0, expire); //사용자 모드=0, 관리자 모드=1
+//----------------------------------------------------------//
+
+//------------로그인&로그아웃&회원가입------------------------//
 function signup() { //회원가입에서 회원정보를 저장하는 함수
     const username = document.getElementById("signup-username").value;
     const id = document.getElementById("signup-ID").value;
@@ -25,8 +49,18 @@ function login(event) { //로그인하는 함수: 입력값이 회원정보와 �
     event.preventDefault();
     const inputID = document.getElementById("login-ID").value;
     const inputPassword = document.getElementById("login-pass").value;
-
     const userData = JSON.parse(localStorage.getItem("user"));
+
+    if (inputID === Admin.ID && inputPassword === Admin.password) {
+        alert("관리자 아이디로 로그인 되었습니다.");
+        sessionStorage.setItem("loggedIn", "true")
+        sessionStorage.setItem("username", Admin.name);
+        sessionStorage.setItem("ID", Admin.ID);
+        SetCookie("mode", "1", expire); //관리자 모드로 전환
+        window.location.href = "index.html";
+        return;
+    }
+
     if (userData && inputID === userData.id && inputPassword === userData.password) {
         sessionStorage.setItem("loggedIn", "true")
         sessionStorage.setItem("username", userData.username);
@@ -40,6 +74,9 @@ function login(event) { //로그인하는 함수: 입력값이 회원정보와 �
 
 function logout() { //로그아웃 버튼 구현
     sessionStorage.clear();
+    if (GetCookie("mode") === "1"){
+        SetCookie("mode", "0", expire); //사용자 모드로 전환
+    }
     alert("로그아웃 완료!");
     window.location.href = "index.html";
 }
@@ -62,6 +99,7 @@ function updateUI() { //헤더에 로그인 회원가입 로그아웃 버튼 유
       logoutItem.style.display = "none";
     }
 }
+//-----------------------------------------------------------------------//
 
 //찜목록 관리------------
 function addMovieWish(movieCd) { //영화 찜 추가
