@@ -28,12 +28,12 @@ async function fetchBookDetail() {
 
     const authorDiv = document.getElementById('author');
     book.authors.forEach(name => {
-      const badge = document.createElement('a');
-      badge.className = 'badge bg-primary text-white text-decoration-none';
-      badge.href = `book-profile.html?name=${encodeURIComponent(name)}`;
+      const badge = document.createElement('span');
+      badge.className = 'badge bg-secondary text-white';
       badge.textContent = name;
       authorDiv.appendChild(badge);
     });
+
 
     document.getElementById('bookCover').src = book.thumbnail || 'https://via.placeholder.com/500x750?text=No+Cover';
     document.getElementById('bookDescription').textContent = book.contents || '책 설명 없음';

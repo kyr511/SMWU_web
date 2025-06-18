@@ -23,21 +23,21 @@ async function fetchMovieDetail() {
 
     const directorDiv = document.getElementById('director');
     directors.forEach(name => {
-      const badge = document.createElement('a');
-      badge.className = 'badge bg-primary text-white text-decoration-none';
-      badge.href = `profile.html?name=${encodeURIComponent(name)}`;
+      const badge = document.createElement('span');
+      badge.className = 'badge bg-secondary text-white';
       badge.textContent = name;
       directorDiv.appendChild(badge);
     });
 
+
     const actorsDiv = document.getElementById('actors');
     actors.forEach(name => {
-      const badge = document.createElement('a');
-      badge.className = 'badge bg-secondary text-white text-decoration-none';
-      badge.href = `profile.html?name=${encodeURIComponent(name)}`;
+      const badge = document.createElement('span');
+      badge.className = 'badge bg-secondary text-white';
       badge.textContent = name;
       actorsDiv.appendChild(badge);
     });
+
 
     // ✅ TMDB에서 포스터 및 소개
     const tmdbRes = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}&language=ko-KR`);
