@@ -54,7 +54,7 @@ const reviewData = [ //더미리뷰(전역변수)
 
 let user = JSON.parse(localStorage.getItem("user") || {}); 
 if (user.BookReviewlist && user.BookReviewlist[bookId]){ //사용자리뷰
-  reviewData.unshift({ username: user.id, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
+  reviewData.unshift({ username: user.username, profileImg: '임시프로필.jpeg' , text: user.BookReviewlist[bookId] });
 }
 
 function loadDummyReviews() {
