@@ -80,42 +80,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 결과 렌더링 함수 (세로 카드 스타일)
     function displayResults(movies) {
-        const resultEl = document.getElementById('result');
-        resultEl.innerHTML = '';
+    const resultEl = document.getElementById('result');
+    resultEl.innerHTML = '';
 
-        if (movies.length === 0) {
-            resultEl.innerHTML = '<p>검색 결과가 없습니다.</p>';
-            return;
-        }
-
-        movies.forEach(movie => {
-            const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-
-            const card = document.createElement('div');
-            card.className = 'card mb-4';
-            card.style.cursor = 'pointer';
-
-            // 🔥 클릭 시 상세 페이지로 이동
-            card.addEventListener('click', () => {
-                window.location.href = `movie-detail.html?title=${encodeURIComponent(movie.title)}`;
-            });
-
-            card.innerHTML = 
-                `<div class="d-flex mb-3">
-                    <div class="flex-shrink-0">
-                        <img src="${poster}" class="img-fluid" alt="${movie.title}" style="width: 150px; height: 225px; object-fit: cover;">
-                    </div>
-                    <div class="ms-3">
-                        <h4>${movie.title}</h4>
-                        <p class="card-text">개봉일: ${movie.release_date || '정보 없음'}</p>
-                        <p class="card-text">${movie.overview ? movie.overview.slice(0, 100) + '...' : '줄거리 없음'}</p>
-                        <p class="card-text">리뷰: ${movie.reviewCnt}개 | 좋아요: ${movie.likeCnt}개</p>
-                    </div>
-                </div>`;
-
-            resultEl.appendChild(card);
-        });
+    if (movies.length === 0) {
+        resultEl.innerHTML = '<p>검색 결과가 없습니다.</p>';
+        return;
     }
+
+    movies.forEach(movie => {
+        const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+        const card = document.createElement('div');
+        card.className = 'card mb-4';
+        card.style.cursor = 'pointer';
+
+        // ✅ 여기! 클릭 시 이동
+        card.addEventListener('click', () => {
+            window.location.href = `movie-detail.html?title=${encodeURIComponent(movie.title)}`;
+        });
+
+        card.innerHTML = `
+            <div class="d-flex mb-3">
+                <div class="flex-shrink-0">
+                    <img src="${poster}" class="img-fluid" alt="${movie.title}" style="width: 150px; height: 225px; object-fit: cover;">
+                </div>
+                <div class="ms-3">
+                    <h4>${movie.title}</h4>
+                    <p class="card-text">개봉일: ${movie.release_date || '정보 없음'}</p>
+                    <p class="card-text">${movie.overview ? movie.overview.slice(0, 100) + '...' : '줄거리 없음'}</p>
+                    <p class="card-text">리뷰: ${movie.reviewCnt}개 | 좋아요: ${movie.likeCnt}개</p>
+                </div>
+            </div>
+        `;
+
+        resultEl.appendChild(card);
+    });
+}
+
+    
 
     // 페이지 들어오자마자 기본 키워드 실행 (선택사항)
     // fetchMovies('드라마'); // 주석 해제하면 자동 실행됨
