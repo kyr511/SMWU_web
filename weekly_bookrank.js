@@ -10,15 +10,12 @@ async function fetchBooks(query = "추천 도서") {
   });
 
   const data = await res.json();
+  let i =1;
 
   return data.documents.map(book => ({
     title: book.title,
-    author: book.authors.join(", ") || "작가 정보 없음",
-    date: book.datetime?.split("T")[0] || "출간일 없음",
-    image: book.thumbnail || "https://via.placeholder.com/150x220?text=No+Image",//표지이미지지
-    price: book.sale_price || Math.floor(Math.random() * 30000 + 5000),
-    reviewCnt: Math.floor(Math.random() * 300), // 더미
-    likeCnt: Math.floor(Math.random() * 100) // 더미
+    image: book.thumbnail || "https://via.placeholder.com/150x220?text=No+Image",//표지이미지
+    rank: i++
   }));
 }
 
