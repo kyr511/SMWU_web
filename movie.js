@@ -63,10 +63,10 @@ async function showMovies() {
 const movies = await kobisApi();
 const container = document.getElementById('movie-list');
 
-// 추후 구현될 데이터: 더미 리뷰 수 & 좋아요 수 추가
+// 더미 리뷰 수 & 좋아요 수
 movies.forEach(movie => {
-movie.reviewCnt = 0; // 추후 구현
-movie.likeCnt = 0;   // 추후 구현
+movie.reviewCnt = Math.floor(Math.random() * 30000);
+movie.likeCnt = Math.floor(Math.random() * 30000); 
 });
 
 // 정렬 함수
