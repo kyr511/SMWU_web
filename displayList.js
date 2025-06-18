@@ -30,7 +30,7 @@ async function displayMovieList(lst, mode) {
     }
 
     for (const movieCd of lst) {
-        const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${KOBIS_KEY}&movieCd=${movieCd}`;
+        const url = `https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${KOBIS_KEY}&movieCd=${movieCd}`;
         const res = await fetch(url);
         const data = await res.json();
         const info = data.movieInfoResult.movieInfo;
@@ -79,7 +79,7 @@ async function displayMovieReview(lst) { //영화 리뷰 부분
     }
 
     for (const movieCd of Object.keys(lst)) {
-        const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${KOBIS_KEY}&movieCd=${movieCd}`;
+        const url = `https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${KOBIS_KEY}&movieCd=${movieCd}`;
         const res = await fetch(url);
         const data = await res.json();
         const info = data.movieInfoResult.movieInfo;
