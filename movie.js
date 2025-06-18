@@ -24,7 +24,7 @@ const data = await response.json();
 // 감독 정보가 있을 경우 반환
 const directors = data.movieInfoResult.movieInfo.directors;
 if (directors && directors.length > 0) {
-    return directors.map(d => d.directorNm).join(', ');
+    return directors.map(d => d.peopleNm).join(', ');
 } else {
     return '정보 없음';
 }
