@@ -4,14 +4,17 @@ const tmdbKey = 'e563363c78911106e273c1c98c637eac';
 const kobisKey = 'eccb144e2dfb491259f8b51680415fb8';
 const params = new URLSearchParams(window.location.search);
 
-let tmdbId = params.get('id');
+// let tmdbId = params.get('id');
+// let movieCd = params.get('movieCd');
+let tmdbId = params.get('tmdbId') || params.get('id');
 let movieCd = params.get('movieCd');
 
-// 깃허브 배포 시 id가 movieCd로 사용될 경우 대비
-if (tmdbId && !movieCd) {
-  movieCd = tmdbId;
-  tmdbId = null;
-}
+
+// // 깃허브 배포 시 id가 movieCd로 사용될 경우 대비
+// if (tmdbId && !movieCd) {
+//   movieCd = tmdbId;
+//   tmdbId = null;
+// }
 
 let globalId;
 
@@ -27,6 +30,20 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// async function fetchTMDBDetail(id) {
+//   try {
+//     const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbKey}&language=ko-KR`);
+//     const data = await res.json();
+//     document.getElementById('movieTitle').textContent = data.title;
+//     document.getElementById('movieOverview').textContent = data.overview || '줄거리 없음';
+//     document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+//     document.getElementById('director').textContent = '감독 정보 없음';
+//     document.getElementById('actors').textContent = '';
+//   } catch (e) {
+//     console.error('TMDB 상세 오류', e);
+//   }
+// }
+
 async function fetchTMDBDetail(id) {
   try {
     const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbKey}&language=ko-KR`);
@@ -34,39 +51,92 @@ async function fetchTMDBDetail(id) {
     document.getElementById('movieTitle').textContent = data.title;
     document.getElementById('movieOverview').textContent = data.overview || '줄거리 없음';
     document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-    document.getElementById('director').textContent = '감독 정보 없음';
-    document.getElementById('actors').textContent = '';
+
+    // 배우/감독 정보 불러오기
+    const creditRes = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${tmdbKey}&language=ko-KR`);
+    const creditData = await creditRes.json();
+
+    // 감독
+    const directors = creditData.crew.filter(person => person.job === 'Director');
+    document.getElementById('director').textContent = directors.map(d => d.name).join(', ') || '감독 정보 없음';
+
+    // 배우
+    const actors = creditData.cast.slice(0, 5); // 상위 5명만
+    document.getElementById('actors').textContent = actors.map(a => a.name).join(', ') || '출연 배우 정보 없음';
+
   } catch (e) {
     console.error('TMDB 상세 오류', e);
   }
 }
+
 
 async function fetchKOBISDetail(cd) {
   try {
     const res = await fetch(`https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${kobisKey}&movieCd=${cd}`);
     const data = await res.json();
     const info = data.movieInfoResult.movieInfo;
+
     document.getElementById('movieTitle').textContent = info.movieNm;
-    document.getElementById('movieOverview').textContent = info.showTm ? `${info.showTm}분` : '정보 없음';
-    document.getElementById('director').textContent = info.directors.map(d => d.peopleNm).join(', ') || '감독 정보 없음';
-    document.getElementById('actors').textContent = info.actors.slice(0, 5).map(a => a.peopleNm).join(', ') || '출연 배우 정보 없음';
-    const poster = await getPosterFromTMDB(info.movieNm);
-    document.getElementById('moviePoster').src = poster;
+
+    // 감독/배우는 KOBIS 사용
+    const directors = info.directors.map(d => d.peopleNm).join(', ');
+    const actors = info.actors.slice(0, 5).map(a => a.peopleNm).join(', ');
+
+    document.getElementById('director').textContent = directors || '감독 정보 없음';
+    document.getElementById('actors').textContent = actors || '출연 배우 정보 없음';
+
+    // 줄거리와 포스터는 TMDB에서 가져오기
+    const tmdbData = await getTMDBMovieDetail(info.movieNm);
+    document.getElementById('movieOverview').textContent = tmdbData.overview || '줄거리 없음';
+    document.getElementById('moviePoster').src = tmdbData.poster || 'https://via.placeholder.com/500x750?text=No+Image';
+
   } catch (e) {
     console.error('KOBIS 상세 오류', e);
   }
 }
 
-async function getPosterFromTMDB(title) {
+async function getTMDBMovieDetail(title) {
   try {
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}&language=ko-KR`);
     const js = await res.json();
-    const m = js.results.find(m => m.poster_path);
-    return m ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
-  } catch {
-    return 'https://via.placeholder.com/500x750?text=No+Image';
+    const m = js.results.find(m => m.overview && m.poster_path);
+    return {
+      overview: m?.overview || '',
+      poster: m?.poster_path ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : null
+    };
+  } catch (e) {
+    console.error('TMDB 검색 오류', e);
+    return { overview: '', poster: null };
   }
 }
+
+
+// async function fetchKOBISDetail(cd) {
+//   try {
+//     const res = await fetch(`https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${kobisKey}&movieCd=${cd}`);
+//     const data = await res.json();
+//     const info = data.movieInfoResult.movieInfo;
+//     document.getElementById('movieTitle').textContent = info.movieNm;
+//     document.getElementById('movieOverview').textContent = info.showTm ? `${info.showTm}분` : '정보 없음';
+//     document.getElementById('director').textContent = info.directors.map(d => d.peopleNm).join(', ') || '감독 정보 없음';
+//     document.getElementById('actors').textContent = info.actors.slice(0, 5).map(a => a.peopleNm).join(', ') || '출연 배우 정보 없음';
+//     const poster = await getPosterFromTMDB(info.movieNm);
+//     document.getElementById('moviePoster').src = poster;
+//   } catch (e) {
+//     console.error('KOBIS 상세 오류', e);
+//   }
+// }
+
+// async function getPosterFromTMDB(title) {
+//   try {
+//     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(title)}&language=ko-KR`);
+//     const js = await res.json();
+//     const m = js.results.find(m => m.poster_path);
+//     return m ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+//   } catch {
+//     return 'https://via.placeholder.com/500x750?text=No+Image';
+//   }
+// }
 
 
 // const tmdbKey = 'e563363c78911106e273c1c98c637eac';

@@ -12,6 +12,8 @@
   user-select: none;
   font-weight: 500;
   transition: background-color 0.2s ease;
+  margin-bottom: 10px;
+
 }
 
 .keyword:hover {
@@ -24,4 +26,5 @@
 .card:hover {
   transform: scale(1.02);
 }
+
 
