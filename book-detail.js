@@ -26,13 +26,9 @@ async function fetchBookDetail() {
     // 제목, 저자, 표지, 설명
     document.getElementById('bookTitle').textContent = book.title;
 
-    const authorDiv = document.getElementById('author');
-    book.authors.forEach(name => {
-      const badge = document.createElement('span');
-      badge.className = 'badge bg-secondary text-white';
-      badge.textContent = name;
-      authorDiv.appendChild(badge);
-    });
+    const authorSpan = document.getElementById('author');
+    authorSpan.textContent = book.authors.join(', ');
+
 
 
     document.getElementById('bookCover').src = book.thumbnail || 'https://via.placeholder.com/500x750?text=No+Cover';
