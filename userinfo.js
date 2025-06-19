@@ -2,6 +2,18 @@
 //-----------쿠키를 이용한 관리자 아이디 관리 부분------------//
 const Admin = {name: "관리자", ID: "Admin", password: "12345678*"}//관리자 전용 아이디
 
+/////유저다시저장
+function safeParseUser() {
+  const str = localStorage.getItem("user");
+  try {
+    return str ? JSON.parse(str) : {};
+  } catch {
+    return {};
+  }
+}
+
+
+
 function GetCookie (name) { //name 쿠키의 값을 가져오는함수
     let pairs = document.cookie.split(";");
     for (let i=0; i<pairs.length; i++){
