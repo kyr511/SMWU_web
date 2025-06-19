@@ -34,21 +34,42 @@ document.addEventListener('DOMContentLoaded', () => {
     displayResults(sortMovies(currentMovies, currentSort));
   });
 
-  async function fetchMovies(keyword) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(keyword)}&language=ko-KR`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      currentMovies = data.results.filter(m => m.poster_path).map(m => ({
-        ...m,
-        reviewCnt: Math.floor(Math.random() * 1000),
-        likeCnt: Math.floor(Math.random() * 500),
-      }));
-      displayResults(sortMovies(currentMovies, currentSort));
-    } catch (e) {
-      console.error('TMDB 검색 오류', e);
-    }
-  }
+//   async function fetchMovies(keyword) {
+//     const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(keyword)}&language=ko-KR`;
+//     try {
+//       const res = await fetch(url);
+//       const data = await res.json();
+//       currentMovies = data.results.filter(m => m.poster_path).map(m => ({
+//         ...m,
+//         reviewCnt: Math.floor(Math.random() * 1000),
+//         likeCnt: Math.floor(Math.random() * 500),
+//       }));
+//       displayResults(sortMovies(currentMovies, currentSort));
+//     } catch (e) {
+//       console.error('TMDB 검색 오류', e);
+//     }
+//   }
+    async function fetchMovies(keyword) {
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(keyword)}&language=ko-KR`;
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+
+            // poster_path가 있고, adult가 false인 영화만 필터링
+            currentMovies = data.results
+            .filter(m => m.poster_path && !m.adult)
+            .map(m => ({
+                ...m,
+                reviewCnt: Math.floor(Math.random() * 1000),
+                likeCnt: Math.floor(Math.random() * 500),
+            }));
+
+            displayResults(sortMovies(currentMovies, currentSort));
+        } catch (e) {
+            console.error('TMDB 검색 오류', e);
+        }
+        }
+
 
   function displayResults(movies) {
     const resultEl = document.getElementById('result');
