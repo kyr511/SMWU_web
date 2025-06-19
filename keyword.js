@@ -97,7 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ✅ 여기! 클릭 시 이동
         card.addEventListener('click', () => {
-            window.location.href = `movie-detail.html?title=${encodeURIComponent(movie.title)}`;
+            // window.location.href = `movie-detail.html?title=${encodeURIComponent(movie.title)}`;
+            window.location.href = `movie-detail.html?id=${movie.id}`;
+
         });
 
         card.innerHTML = `
